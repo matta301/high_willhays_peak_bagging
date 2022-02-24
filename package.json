@@ -28,6 +28,7 @@
     }
   },
   "scripts": {
+    "d": "npm-run-all -p imagemin sass webpack -p browser watch",
     "dev": "npm-run-all -p imagemin sass webpack -p browser watch",
     "browser": "cross-conf-env browser-sync \"http://$npm_package_config_browsersync_proxy\" -f \"**/*.php\" \"$npm_package_config_css_dist\" \"$npm_package_config_js_output\" \"$npm_package_config_image_dist\" --port $npm_package_config_browsersync_port",
     "build": "run-p imagemin sass webpack",
@@ -101,6 +102,8 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
+    "@chenfengyuan/datepicker": "^1.0.10",
+    "bootstrap": "^5.1.3",
     "stylelint-config-airbnb": "0.0.0"
   }
 }

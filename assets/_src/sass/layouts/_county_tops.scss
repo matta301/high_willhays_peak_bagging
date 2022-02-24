@@ -1,0 +1,14 @@
+@use "../global" as *;
+
+.peak-bagging-historic-county-tops {
+
+  .nav-item {
+    flex-grow: 1;
+  }
+
+  .nav-link {
+    text-transform: capitalize;
+    width: 100%;
+  }
+
+}

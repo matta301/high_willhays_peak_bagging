@@ -1,6 +1,8 @@
 <?php
 
-function display_historic_county_tops($page_id, $all_countries, $county_tops, $thumbnail_img ) { ?>
+function display_historic_county_tops($page_id, $all_countries, $county_tops, $thumbnail_img ) { 
+    echo plugins_url();
+    ?>
 
     <div class="peak-bagging-historic-county-tops">
         <!-- Tabs -->
@@ -46,26 +48,26 @@ function display_historic_county_tops($page_id, $all_countries, $county_tops, $t
                             $counter_3 = 0;
                             foreach ( $county_tops[$one_country] as $county_top) {
                                 $counter_3++;
-                                //echo '<pre>' , var_dump($county_top) , '</pre>';
+                                $guid = $county_top['guid'] != '' ? $thumbnail_img->thumbnail_image($county_top['guid']) : '';
                             ?>
                             <tr>
-                                <td  class="py-3"><?php echo $counter_3; ?></td>
-                                <td  class="py-3"><?php echo $county_top['county_top_name'] ?></td>
-                                <td  class="py-3"><?php echo $county_top['post_title'] ?></td>
-                                <td  class="py-3"><?php echo $county_top['elevation'] ?></td>
-                                <td  class="py-3">
-                                    <button type="button" 
+                                <td class="py-3"><?php echo $counter_3; ?></td>
+                                <td class="py-3"><?php echo $county_top['county_top_name'] ?></td>
+                                <td class="py-3"><?php echo $county_top['post_title'] ?></td>
+                                <td class="py-3"><?php echo $county_top['elevation'] ?></td>
+                                <td class="py-3">
+                                    <button type="button"
                                             id="peak-<?php echo $county_top['ID'] ?>"
-                                            class="btn btn-outline-<?php echo ($county_top['completed'] == 1) ? 'secondary' : 'primary'; ?> js-btn-complete" 
-                                            data-bs-toggle="modal" 
+                                            class="btn btn-outline-<?php echo ($county_top['completed'] == 1) ? 'secondary' : 'primary'; ?> js-btn-complete"
+                                            data-bs-toggle="modal"
                                             data-bs-target="#historic-modal"
                                             data-id="<?php echo $county_top['ID'] ?>"
                                             data-name="<?php echo $county_top['county_top_name'] ?>"
                                             data-country="<?php echo $county_top['country'] ?>"
-                                            data-title="<?php echo $county_top['post_title'] ?>"
+                                            data-posttitle="<?php echo $county_top['post_title'] ?>"
                                             data-date="<?php echo $county_top['summit_date'] ?>"
                                             data-fieldreport="<?php echo $county_top['comment_content'] ?>"
-                                            data-guid="<?php echo $thumbnail_img->thumbnail_image( $county_top['guid'] ); ?>"
+                                            data-guid="<?php echo $guid; ?>"
                                     >
                                     <?php echo ($county_top['completed'] == 1) ? 'Edit' : 'Complete'; ?>
                                     </button>
@@ -79,23 +81,6 @@ function display_historic_county_tops($page_id, $all_countries, $county_tops, $t
         </div>
         
         <?php include 'modal.php' ?>
-
-        <div id="trophy-modal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Congratulations!</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">                    
-                    ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <?php include 'trophy-modal.php' ?>
     </div>
 <?php } ?>

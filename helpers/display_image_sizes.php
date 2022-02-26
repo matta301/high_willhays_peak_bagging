@@ -2,11 +2,9 @@
 
 class Display_image_sizes 
 {
-
     function thumbnail_image( $image_url ) {
-
-        $guid = substr($image_url, strrpos($image_url, '/') + 1);        
-        return $guid;
+        $file_type = wp_check_filetype( $image_url );
+        return  implode('-', explode('-', $image_url, -1)) . '-150x150.' . $file_type["ext"];
     }
 }
 

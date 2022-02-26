@@ -1,0 +1,20 @@
+.congratulations-dialog {
+
+  .modal-dialog {
+    max-width: 350px;
+    text-align: center;
+
+    .congratulations-dialog-message-county {
+      text-transform: capitalize;        
+    }
+
+    .congratulations-dialog-badge {
+      margin: 10px 0 20px;
+      width: 50%;
+    }
+
+    .congratulations-dialog-view-link {
+      color: #7f2f3c;
+    }
+  }  
+}

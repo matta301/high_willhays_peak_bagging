@@ -8,6 +8,8 @@ wp-config.php
 
 # Node.js
 node_modules/
+assets/_src/images
+
 
 # Logfiles and tempfiles
 /log/*

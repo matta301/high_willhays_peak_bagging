@@ -4,6 +4,7 @@
         <input type="hidden" name="destroySession" value="1">
         <input name='action' type="hidden" value='historic_modal_submission'>
         <input type="hidden" class="form-control js-county-top-id" id="county-top-id" name="peak_id" value="">
+        <input type="hidden" class="form-control js-peak_county" id="peak_county" name="peak_county" value="">
         <input type="hidden" class="form-control js-peak-country" id="peak-country" name="peak_country" value="">
         <input type="hidden" class="form-control js-button-type" id="button-type" name="button_type" value="">
         <?php wp_nonce_field('_wpnonce'); ?>
@@ -25,7 +26,13 @@
                     </div>
                     <div class="mb-3">
                         <input id="peak_summit_image" type="file" class="form-control" name="peak_summit_image">
-                        <?php if (isset( $_GET['file_size'] )) { ?><p class="form-error text-danger">File size is too big. (2MB Max)</p><?php } ?>
+                        <?php if (isset( $_GET['file_size'] )) { ?><p class="form-error text-danger">File size is too big. (4 MB Max)</p><?php } ?>
+                        <?php if (isset( $_GET['file_type'] )) { ?><p class="form-error text-danger">Wrong file format. (.png, .jpg)</p><?php } ?>
+                        
+                        <div class="js-preview-image d-none">
+                            <img id="peak_summit_image_preview" class="js-peak-summit-image-preview" src="" alt="Summit image preview" />
+                            <button type="submit" class="btn btn-outline-danger" name="submit" value="delete_image">delete</button>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

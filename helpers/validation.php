@@ -29,8 +29,8 @@ class Peakbagging_dashboard_helpers
         $file_size = $uploaded_file['peak_summit_image']['size'];
 
         // FILE errors
-        if ( $file_err != NULL || $file_size > 2097152 ) { 
-            $this->errors['file_size'] = 'file_size'; //'File size is too big. (2MB Max)';
+        if ( $file_err != NULL || $file_size > 4194304 ) { 
+            $this->errors['file_size'] = 'file_size'; //'File size is too big. (4MB Max)';
         }
 
         $allowed_ext = [ 'image/png', 'image/gif', 'image/jpeg', 'image/jpg' ];

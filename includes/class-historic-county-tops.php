@@ -30,6 +30,11 @@ class Historic_County_Tops
             if( $_POST["submit"] == 'delete' ) {
                 $this->delete_completed_peak();
             }
+            
+            if( $_POST["submit"] == 'delete_image' ) {
+                $this->delete_summit_image();
+            }
+
         } else {
             wp_redirect( bloginfo( 'url' ) . '/peak-bagging-historic-county-tops/');
             exit();
@@ -44,6 +49,26 @@ class Historic_County_Tops
     {
         $user_id = get_current_user_id();
         $user_info = get_userdata($user_id);
+
+        $peak_id = esc_html( $_POST['peak_id'] );
+
+        // If file exists
+        if ( $_FILES["peak_summit_image"]["size"] > 0 ) {
+            $file_data_validation = new Peakbagging_dashboard_helpers();
+            $file_results = $file_data_validation->file_validation( $_FILES );
+        }
+
+        // If any errors send back to frontend - (File type or file size)
+        if ( !empty( $file_results ) ) {
+            $str = '?error_id=' .$peak_id;
+            foreach ( $file_results as $key => $value ) {
+                $str .= '&' . $key . '=' . $value;
+            }
+
+            wp_redirect( bloginfo( 'url' ) . '/peak-bagging-historic-county-tops/' . $str );
+            exit();
+        }
+
 
         // POST Data
         $peak_id         = esc_html( $_POST['peak_id'] );
@@ -71,6 +96,34 @@ class Historic_County_Tops
             array( 'summit_date' => $date ),
             array( 'user_id' => $user_id, 'peak_id' => $peak_id )
         );
+
+        if ( $_FILES["peak_summit_image"]["size"] > 0 ) {
+
+            // Retrieve the post's attachment of user's summit image
+            $post_attachment = get_posts(
+                array(
+                    'post_type'   => 'attachment',
+                    'author' => $user_id,
+                    'post_parent' => $peak_id
+                )
+            );
+
+            $upload_info = wp_get_upload_dir();
+            $base_dir = $upload_info["basedir"];
+
+            // Delete attachment and file
+            if ( !empty( $post_attachment ) ) {
+                foreach ($post_attachment as $image) {
+                    wp_delete_attachment( $image->ID, true );
+                    wp_delete_file( $image->guid );
+                    wp_delete_file( $base_dir . '/summit_images/user_'. $user_id . '/' . $image->post_title );
+                }
+            }
+
+            // Finaly upload file if there is one
+            $upload_images = new Upload_user_images();
+            $result = $upload_images->upload_summit_images( $user_id, $_FILES, $peak_id );
+        }
         
         wp_redirect( bloginfo( 'url' ) . '/peak-bagging-historic-county-tops/?update=success' );
         exit();
@@ -129,19 +182,55 @@ class Historic_County_Tops
 
 
     /**
+     *  DELETE Image
+     */
+    function delete_summit_image()
+    {
+        $user_ID = get_current_user_id();
+        $peak_ID = esc_html( $_POST['peak_id'] );
+
+        // Retrieve the post's attachment of user's summit image
+        $post_attachment = get_posts(
+            array(
+                'post_type'   => 'attachment',
+                'author' => $user_ID,
+                'post_parent' => $peak_ID
+            )
+        );
+
+        $upload_info = wp_get_upload_dir();
+        $base_dir = $upload_info["basedir"];
+
+        // Delete attachment and file
+        if ( !empty( $post_attachment ) ) {
+            foreach ($post_attachment as $image) {
+                wp_delete_attachment( $image->ID, true );
+                wp_delete_file( $image->guid );
+                wp_delete_file( $base_dir . '/summit_images/user_'. $user_ID . '/' . $image->post_title );
+            }
+        }
+
+        wp_redirect( bloginfo( 'url' ) . '/peak-bagging-historic-county-tops/');
+        exit();
+    }
+
+    /**
      *  POST Completed Peak
      */
     function post_completed_peak()
-    {
-       
+    {       
         $user_id = get_current_user_id();
         $user_info = get_userdata($user_id);
 
         // POST Data
-        $peak_id         = esc_html( $_POST['peak_id'] );
-        $summit_date     = esc_html( $_POST["peak_summit_date"] );
-        $peak_country    = esc_html( strtolower( $_POST["peak_country"] ) );
-        $field_report    = sanitize_textarea_field( $_POST["peak_field_report"] );
+        $peak_id      = esc_html( $_POST['peak_id'] );
+        $summit_date  = esc_html( $_POST["peak_summit_date"] );
+        $peak_county  = esc_html( strtolower( $_POST["peak_county"] ) );
+        $peak_country = esc_html( strtolower( $_POST["peak_country"] ) );
+        $field_report = sanitize_textarea_field( $_POST["peak_field_report"] );
+
+        // echo '<pre>' , var_dump($_POST) , '</pre>';
+        // exit();
 
         $date_format    = str_replace( '/', '-', $summit_date );
         $date = date('Y-m-d', strtotime($date_format));
@@ -167,7 +256,7 @@ class Historic_County_Tops
                 $str .= '&' . $key . '=' . $value;
             }
 
-            wp_redirect( bloginfo( 'url' ) . '/peak-bagging-historic-county-tops' . $str );
+            wp_redirect( bloginfo( 'url' ) . '/peak-bagging-historic-county-tops/' . $str );
             exit();
         }
 
@@ -190,7 +279,7 @@ class Historic_County_Tops
 
         wp_insert_comment( $comment_data );
 
-        $country = strtolower($peak_country);
+         // $country = strtolower($peak_country);
 
         // Insert into completed Peaks table
         global $wpdb;
@@ -198,17 +287,16 @@ class Historic_County_Tops
             'user_id' => $user_id,
             'peak_id' => $peak_id,
             'summit_date' => $date,
-            $country => '1'
+            strtolower($peak_country) => '1'
         ) );
 
-        
         // Finaly upload file if there is one
         if ( $_FILES["peak_summit_image"]["size"] > 0 ) {
             $upload_images = new Upload_user_images();
             $result = $upload_images->upload_summit_images( $user_id, $_FILES, $peak_id );
         }
 
-        wp_redirect( bloginfo( 'url' ) . '/peak-bagging-historic-county-tops/?success=' . $peak_id );
+        wp_redirect( bloginfo( 'url' ) . '/peak-bagging-historic-county-tops/?completed=' . $peak_id . '&county=' . strtolower( $peak_county ) );
         exit();
     }
 

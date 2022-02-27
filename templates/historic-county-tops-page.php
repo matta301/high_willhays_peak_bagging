@@ -1,9 +1,6 @@
 <?php
 
-function display_historic_county_tops($page_id, $all_countries, $county_tops, $thumbnail_img ) { 
-    echo plugins_url();
-    ?>
-
+function display_historic_county_tops($page_id, $all_countries, $county_tops, $thumbnail_img ) {  ?>
     <div class="peak-bagging-historic-county-tops">
         <!-- Tabs -->
         <ul class="county-tops nav nav-tabs mb-5" id="myTab" role="tablist">

@@ -192,7 +192,7 @@ class Historic_County_Tops
         // Retrieve the post's attachment of user's summit image
         $post_attachment = get_posts(
             array(
-                'post_type'   => 'attachment',
+                'post_type' => 'attachment',
                 'author' => $user_ID,
                 'post_parent' => $peak_ID
             )

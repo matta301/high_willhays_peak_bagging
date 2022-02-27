@@ -38,15 +38,17 @@ $historic_County_Tops = new Historic_County_Tops();
 require_once WP_PLUGIN_DIR . '/high_willhays_peak_bagging/includes/class-historic-county-tops-maps.php';
 $historic_County_Tops_Maps = new Historic_County_Tops_Maps();
 
+require_once WP_PLUGIN_DIR . '/high_willhays_peak_bagging/includes/class-historic-county-tops-badges.php';
+$historic_County_Tops_Badges = new Historic_County_Tops_badges();
 
-
+require_once WP_PLUGIN_DIR . '/high_willhays_peak_bagging/includes/class-historic-county-tops-honour-roll.php';
+$historic_County_Tops_Honour_Roll = new Historic_County_Tops_Honour_Roll();
 
 function activate_peak_dashboard() {
 	require_once WP_PLUGIN_DIR . '/high_willhays_peak_bagging/includes/class-peak-dashboard-activator.php';
 	Peak_Dashboard_Activator::activate();
 }
 register_activation_hook( __FILE__, 'activate_peak_dashboard' );
-
 
 function add_plugin_scripts() {
 
@@ -56,6 +58,7 @@ function add_plugin_scripts() {
 	wp_enqueue_script( 'datepicker-init', plugins_url() . '/high_willhays_peak_bagging/assets/js/init-datepicker.js', array(), null, true );
 
     wp_enqueue_style( 'bootstrap-main', get_theme_file_uri( 'assets/css/bootstrap/bootstrap.min.css' ) );
+    wp_enqueue_style( 'bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' );
     wp_enqueue_script( 'bootstrap-js', get_theme_file_uri( 'assets/js/bootstrap/bootstrap.min.js' ), array('jquery'), null, true );
 
     // Main

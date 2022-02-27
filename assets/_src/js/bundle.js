@@ -1,4 +1,5 @@
 import './trophy-modal';
+import './honour-roll';
 
 const historicCountyTopModal = () => {
   const modal = document.querySelector('#historic-modal');

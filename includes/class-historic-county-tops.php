@@ -69,7 +69,6 @@ class Historic_County_Tops
             exit();
         }
 
-
         // POST Data
         $peak_id         = esc_html( $_POST['peak_id'] );
         $summit_date     = esc_html( $_POST["peak_summit_date"] );
@@ -143,15 +142,14 @@ class Historic_County_Tops
             'user_id' => get_current_user_id(),
             'post_id' => $peak_ID
         ) );
+     
 
         // Delete comment
-        $delete_comment = wp_delete_comment( $comments[0]->comment_ID, true );
+        if( !empty($comments) ) {
+            $delete_comment = wp_delete_comment( $comments[0]->comment_ID, true );
+        }        
 
-        if ( is_wp_error( $delete_comment ) ) {
-            return $delete_comment->get_error_message();
-        }
-
-        // Retrieve the post's attachment of user's summit image
+         // Retrieve the post's attachment of user's summit image
         $post_attachment = get_posts(
             array(
                 'post_type'   => 'attachment',
@@ -163,7 +161,7 @@ class Historic_County_Tops
         $upload_info = wp_get_upload_dir();
         $base_dir = $upload_info["basedir"];
 
-
+   
         // Delete attachment and file
         if ( !empty( $post_attachment ) ) {
             foreach ($post_attachment as $image) {
@@ -174,10 +172,15 @@ class Historic_County_Tops
         }
 
         global $wpdb;
-        $wpdb->query($wpdb->prepare("DELETE FROM trailw_peakbagging_completed WHERE user_id = %d AND peak_id = %d;", $user_ID, $peak_ID));
-        
+        $query = $wpdb->query($wpdb->prepare("DELETE FROM tw_peakbagging_completed WHERE user_id = %d AND peak_id = %d;", $user_ID, $peak_ID));
+
+      if ($query) {
         wp_redirect( bloginfo( 'url' ) . '/peak-bagging-historic-county-tops/');
         exit();
+      }else {
+        wp_redirect( bloginfo( 'url' ) . '/peak-bagging-historic-county-tops/?error=delete');
+        exit();
+      }
     }
 
 
@@ -229,9 +232,6 @@ class Historic_County_Tops
         $peak_country = esc_html( strtolower( $_POST["peak_country"] ) );
         $field_report = sanitize_textarea_field( $_POST["peak_field_report"] );
 
-        // echo '<pre>' , var_dump($_POST) , '</pre>';
-        // exit();
-
         $date_format    = str_replace( '/', '-', $summit_date );
         $date = date('Y-m-d', strtotime($date_format));
 
@@ -279,11 +279,13 @@ class Historic_County_Tops
 
         wp_insert_comment( $comment_data );
 
-         // $country = strtolower($peak_country);
+        if ($peak_country == 'northern ireland') {
+            $peak_country = 'n_ireland';
+        }
 
         // Insert into completed Peaks table
         global $wpdb;
-        $wpdb->insert( $wpdb->prefix . 'peakbagging_completed', array(
+        $result = $wpdb->insert( $wpdb->prefix . 'peakbagging_completed', array(
             'user_id' => $user_id,
             'peak_id' => $peak_id,
             'summit_date' => $date,

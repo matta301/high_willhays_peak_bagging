@@ -21,12 +21,14 @@ class Peakbagging_dashboard_helpers
 
     function file_validation( $uploaded_file )
     {
+        $values = array_values($uploaded_file)[0];
+
         // File Data
-        $file_name = $uploaded_file['peak_summit_image']['name'];
-        $file_mime = $uploaded_file['peak_summit_image']['type'];
-        $file_tmp  = $uploaded_file['peak_summit_image']['tmp_name'];
-        $file_err  = $uploaded_file['peak_summit_image']['error'];
-        $file_size = $uploaded_file['peak_summit_image']['size'];
+        $file_name = $values['name'];
+        $file_mime = $values['type'];
+        $file_tmp  = $values['tmp_name'];
+        $file_err  = $values['error'];
+        $file_size = $values['size'];
 
         // FILE errors
         if ( $file_err != NULL || $file_size > 4194304 ) { 

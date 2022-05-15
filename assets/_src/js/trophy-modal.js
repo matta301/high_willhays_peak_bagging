@@ -4,7 +4,7 @@ const showTrophyModal = () => {
   const params = Object.fromEntries(urlSearchParams.entries());
   if (params.completed) {
     populateBadge(params);
-    $('.bd-example-modal-sm').modal('show');
+    jQuery('.bd-example-modal-sm').modal('show');
   }
 };
 

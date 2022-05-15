@@ -1,19 +1,17 @@
+import 'chart.js';
+import './barchart';
+import './doughnut-chart';
+import './percentage-chart';
 import './trophy-modal';
 import './honour-roll';
+import './profile';
 
-const historicCountyTopModal = () => {
-  const modal = document.querySelector('#historic-modal');
-  if (!modal) {
-    return;
-  }
-
+const historicCountyTopModal = (modal) => {
   const button = document.querySelectorAll('.js-btn-complete');
   button.forEach((element) => {
     element.addEventListener('click', (event) => {
       const data = event.target.dataset;
       const buttonName = event.target.innerText.toLowerCase();
-      console.log(data);
-      console.log(buttonName);
 
       // Toggle display trash icon
       const completeButton = modal.querySelector('.btn-complete');
@@ -67,15 +65,12 @@ const modalErrors = () => {
 
   const urlSearchParams = new URLSearchParams(window.location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
-  console.log(params);
 
   if (params.error_id) {
-    console.log('HAS ERROR');
-    console.log(parseInt(params.error_id));
     for (let i = 0; i < button.length; i++) {
       if (button[i].dataset.id == params.error_id) {
         setTimeout(() => {
-          $(`#peak-${params.error_id}`).click();
+          jQuery(`#peak-${params.error_id}`).click();
         }, 500);
       }
     }
@@ -113,7 +108,7 @@ const modalUpdateSuccessful = () => {
 
 
 const clearModalErrors = () => {
-  $('#historic-modal').on('hidden.bs.modal', function() {
+  jQuery('#historic-modal').on('hidden.bs.modal', function() {
     const errors = document.querySelectorAll('.form-error');
     for (let i = 0; i < errors.length; i++) {
       errors[i].remove();
@@ -123,11 +118,13 @@ const clearModalErrors = () => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const modal = document.querySelector('#historic-modal');
-  if (!modal) return;
+  const modal = document.querySelector('#historicModal');
+  if (!modal) {
+    return;
+  }
 
   modalErrors(modal);
-  historicCountyTopModal();
+  historicCountyTopModal(modal);
   modalUpdateSuccessful();
   clearModalErrors();
 });

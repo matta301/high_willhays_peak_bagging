@@ -1,0 +1,45 @@
+.profile-page {
+
+  .profile-image-wrapper {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    float: right;
+    height: 200px;
+    margin-bottom: 10px;
+    position: relative;
+    width: 200px;
+
+    span {
+      color: #fff;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  input,
+  textarea {
+    font-size: 16px;
+  }
+
+  .update-details-button {
+    float: right;
+  }
+
+  .btn-primary {
+    background-color: #7f2f3c;
+    border-color: #7f2f3c;
+    color: #fff;
+
+    &:hover {
+      background-color: transparent;
+      color: #000;
+    }
+  }
+}

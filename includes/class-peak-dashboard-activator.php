@@ -33,7 +33,11 @@ class Peak_Dashboard_Activator {
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         
         global $wpdb;
-        $table_name = $wpdb->prefix . 'peakbagging_completed';
+        $database_name = $wpdb->dbname;
+        $prefix = $wpdb->prefix;
+
+
+        $table_name = $prefix . 'peakbagging_completed';
 
         $main_sql_table = "CREATE TABLE `$table_name` (
             `id` int NOT NULL AUTO_INCREMENT,
@@ -47,6 +51,6 @@ class Peak_Dashboard_Activator {
             PRIMARY KEY (`id`)
           );";
 
-        maybe_create_table( $wpdb->prefix . $table_name, $main_sql_table );
+        maybe_create_table( $table_name, $main_sql_table );
 	}
 }

@@ -1,13 +1,15 @@
 <?php
 // echo plugin_dir_url( __DIR__ );
-function display_historic_county_tops_honour_roll( $honour_roll ) { 
-    // echo '<pre>' , var_dump( $honour_roll[0] ) , '</pre>';
-    ?>
+function display_historic_county_tops_honour_roll( $honour_roll ) { ?>
+    <div>
+        <h1>Roll of Honour</h1>
+    </div>
     <div class="honour-roll-page">
     <table class="table">
         <thead>
             <tr>
             <th scope="col">#</th>
+            <th scope="col"></th>
             <th scope="col">Name</th>
             <th scope="col">Scotland</th>
             <th scope="col">England</th>
@@ -25,6 +27,7 @@ function display_historic_county_tops_honour_roll( $honour_roll ) {
             ?>
             <tr class="honour-roll-row place-<?php echo $bagger['total']; ?>" data-position="<?php echo $bagger['total']; ?>"">
                 <th scope="row"><?php echo $count; ?></th>
+                <td></td>
                 <td><?php echo $bagger['nicename']; ?></td>
                 <td><?php echo $bagger['scotland']; ?></td>
                 <td><?php echo $bagger['england']; ?></td>

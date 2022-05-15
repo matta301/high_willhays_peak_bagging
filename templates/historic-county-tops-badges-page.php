@@ -1,7 +1,10 @@
 <?php
 // echo plugin_dir_url( __DIR__ );
 function display_historic_county_tops_trophys($badges) { ?>
-    <div class="peakbagging-trophy-cabinet container">
+    <div>
+        <h1>Trophy Cabinet</h1>
+    </div>
+    <div class="peakbagging-trophy-cabinet">
         <div class="row">
             <?php foreach($badges as $one_badge) { ?>
             <div class="col-sm-6 col-lg-3 col-xxl-2">

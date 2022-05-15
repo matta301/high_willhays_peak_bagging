@@ -1,0 +1,113 @@
+.dashboard-page {
+
+  .country-name {
+    font-size: 1.1em;
+    text-transform: capitalize;  
+  }
+
+  .completed-total {
+    font-size: 1.8em;
+    font-weight: normal;
+  }
+
+  .flag {
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 0 10px 1px rgb(0 0 0 / 20%);
+    height: 65px;
+    position: absolute;
+    right: 15px;
+    top: -20px;
+    width: 110px;
+
+    @media (min-width: 992px) { 
+      height: 45px;
+      top: -21px;
+      width: 45px;
+    }
+
+    @media (min-width: 1200px) {
+      height: 65px;
+      right: 15px;
+      top: -20px;
+      width: 110px;
+    }
+  }
+
+  .flag-of-scotland {
+    background-image: url("http://trailwanderer.local/app/plugins/high_willhays_peak_bagging/assets/images/flags/flag_of_scotland.png");
+  }
+
+  .flag-of-england {
+    background-image: url("http://trailwanderer.local/app/plugins/high_willhays_peak_bagging/assets/images/flags/flag_of_england.png");
+  }
+
+  .flag-of-wales {
+    background-image: url("http://trailwanderer.local/app/plugins/high_willhays_peak_bagging/assets/images/flags/flag_of_wales.png");
+  }
+
+  .flag-of-n-ireland {
+    background-image: url("http://trailwanderer.local/app/plugins/high_willhays_peak_bagging/assets/images/flags/flag_of_n_ireland.png");
+  }
+
+
+  .card-footer {
+
+    svg {
+      position: relative;
+      top: -2px;
+    }
+  }
+
+  .doughnut-chart {
+    padding: 0;
+
+    @media (min-width: 1200px) {
+      align-items: center;
+      display: flex;
+      padding: 3em;
+    }
+
+    canvas {
+      width: 50%;
+    } 
+  }
+
+  .bar-chart {
+
+    .nav-link {
+      color: #000;
+    }
+  }
+
+  .stats {
+    font-size: 33px;
+    font-weight: normal;
+  }
+
+  .empty-bar-chart-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 500px;
+    text-align: center;
+
+    a {
+      margin: 1em auto;
+      width: 250px;
+    }
+  }
+
+
+  .btn-primary {
+    background-color: #7f2f3c;
+    border-color: #7f2f3c;
+    color: #fff;
+
+    &:hover {
+      background-color: transparent;
+      color: #000;
+    }
+  }
+}
+

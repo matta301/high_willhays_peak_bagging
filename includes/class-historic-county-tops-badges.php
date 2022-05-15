@@ -2,7 +2,7 @@
 
 require_once WP_PLUGIN_DIR .'/high_willhays_peak_bagging/templates/historic-county-tops-badges-page.php';
 
-class Historic_County_Tops_badges
+class Historic_County_Tops_Badges
 {
     public function __construct()
     {

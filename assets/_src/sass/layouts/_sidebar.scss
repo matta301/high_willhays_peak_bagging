@@ -1,0 +1,159 @@
+.peak-bagging-sidebar { 
+  display: none;
+  max-width: 280px !important;
+  padding: 0 !important;
+  
+  @media (min-width: 768px) {
+    display: flex;
+  }
+  
+  .profile-image {
+    min-height: 150px;
+    text-align: center;
+  
+    p {
+      color: #fff;
+      margin-bottom: 0;
+    }
+  
+    .user-email { 
+      color: #fff;
+      font-size: 14px;
+    }
+  
+    .profile-link {
+      background: transparent;
+      font-size: 14px;
+      font-style: italic;
+      margin-top: 20px;
+      padding: 0;
+      text-align: center;
+      text-decoration: underline;
+    }
+  }
+  
+  .current-menu-item {
+    background-color: #7f2f3c;
+  }
+  
+  .avatar {
+    background-color: #d7a216;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    height: 110px;
+    margin: 2em auto;
+    margin-bottom: 1em;
+    position: relative;
+    width: 110px;
+  
+    span {
+      color: #fff;
+      font-size: 26px;
+      font-weight: 100;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+  a {
+    color: #fff !important;
+    display: block;
+    padding: 1em 0 1em 3em;
+    text-decoration: none;
+
+    &:hover {
+      background-color: #7f2f3c;
+      color: #fff;
+    }
+
+    &::before {
+      content: "";
+      font-family: "Material Icons";
+      left: -17px;
+      position: relative;
+      top: 2px;
+    }
+  }
+
+  // Dashboard
+  .menu-item-1551 a {
+  
+    &::before {
+      content: "\e871";
+    }
+  } 
+  
+  // Historic County Top
+  .menu-item-1562 a {
+  
+    &::before {
+      content: "\e3f7";
+    }
+  } 
+  
+  // Map
+  .menu-item-1556 a {
+  
+    &::before {
+      content: "\e55b";
+    }
+  } 
+  
+  // Trophy Cabinet
+  .menu-item-1569 a {
+  
+    &::before {
+      content: "\ea3f";
+    }
+  } 
+  
+  // Roll of honour
+  .menu-item-1566 a {
+  
+    &::before {
+      content: "\f233";
+    }
+  }
+  
+  // Home
+  .menu-item-1552 a {
+  
+    &::before {
+      content: "\e88a";
+    }
+  }   
+}
+  
+.offcanvas-start {
+  margin: 0;
+  max-width: 250px;
+  padding: 0;
+}
+  
+.peak-bagging-sidebar-mobile {
+  display: block;
+}
+  
+.mobile-peakbagging-nav {
+  float: right;
+  
+  @media (min-width: 768px) { 
+    display: none !important;  
+  }
+}
+
+
+
+.mobile-navigation {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
